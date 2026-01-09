@@ -1,1 +1,211 @@
 # Amorcito_elizabeth.github.io
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para mi Novia</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .container {
+        text-align: center;
+        color: #fff;
+        padding: 20px;
+        z-index: 10;
+        position: relative;
+        max-width: 800px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .message-box {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 30px;
+        color: #333;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        text-align: left;
+        border: 2px solid #ff6b8b;
+      }
+
+      .message-box p {
+        margin-bottom: 15px;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 20px;
+        color: #ff6b8b;
+        animation: fall 5s linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes fall {
+        0% {
+          top: -10%;
+          opacity: 1;
+          transform: translateX(0) rotate(0deg);
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+          transform: translateX(100px) rotate(360deg);
+        }
+      }
+
+      button {
+        background: #ff6b8b;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: #ff3e6d;
+        transform: scale(1.05);
+      }
+
+      .signature {
+        margin-top: 20px;
+        font-style: italic;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .message-box {
+          padding: 20px;
+          font-size: 1rem;
+        }
+        button {
+          padding: 12px 25px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Para mi Amor 💖</h1>
+      <div class="message-box" id="messageBox">
+        <!-- El mensaje se escribirá aquí con efecto -->
+      </div>
+      <button onclick="showHearts()">¡Haz clic para más corazones!</button>
+      <div class="signature" id="signature"></div>
+    </div>
+
+    <script>
+      // Mensaje personalizado (puedes cambiarlo)
+      const mensaje = [
+        "Mi querida novia,",
+        "",
+        "Desde que entraste en mi vida, todo se ha llenado de colores y alegría.",
+        "Cada momento a tu lado es un tesoro que guardo en mi corazón.",
+        "Tu sonrisa es mi luz en los días grises y tu amor mi mayor fortaleza.",
+        "",
+        "Hoy quiero recordarte lo especial que eres para mí.",
+        "Eres la razón por la que creo en el destino y en el amor eterno.",
+        "",
+        "Te amo más de lo que las palabras pueden expresar.",
+        "Gracias por ser tú.",
+        "",
+        "Con todo mi amor,",
+      ];
+
+      const firma = "Tu novio 💕"; // Cambia esto por tu nombre o apodo
+
+      const messageBox = document.getElementById("messageBox");
+      const signature = document.getElementById("signature");
+
+      // Función para escribir el mensaje con efecto de máquina de escribir
+      let index = 0;
+      function typeWriter() {
+        if (index < mensaje.length) {
+          const line = mensaje[index];
+          const p = document.createElement("p");
+          messageBox.appendChild(p);
+          let charIndex = 0;
+          function typeChar() {
+            if (charIndex < line.length) {
+              p.innerHTML += line.charAt(charIndex);
+              charIndex++;
+              setTimeout(typeChar, 50);
+            } else {
+              index++;
+              setTimeout(typeWriter, 300);
+            }
+          }
+          typeChar();
+        } else {
+          // Cuando termina el mensaje, muestra la firma
+          signature.innerHTML = firma;
+        }
+      }
+
+      // Iniciar el efecto de escritura al cargar la página
+      window.onload = function () {
+        setTimeout(typeWriter, 1000);
+      };
+
+      // Función para crear corazones animados
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(heart);
+
+        // Eliminar el corazón después de la animación
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+
+      // Crear corazones automáticamente cada cierto tiempo
+      setInterval(createHeart, 300);
+
+      // Función para mostrar muchos corazones al hacer clic en el botón
+      function showHearts() {
+        for (let i = 0; i < 50; i++) {
+          setTimeout(createHeart, i * 100);
+        }
+      }
+    </script>
+  </body>
+</html>
